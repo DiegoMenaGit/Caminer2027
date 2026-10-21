@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es" class="page-projects">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>
+      Proyectos | Caminer · Viviendas, hoteles, reformas y naves en Mallorca
+    </title>
+    <meta
+      name="description"
+      content="Explora los proyectos de Caminer: viviendas, hoteles, reformas y naves en Sa Pobla y toda Mallorca. Filtra por tipo de obra."
+    />
+    <link rel="canonical" href="https://www.caminer.es/proyectos.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Proyectos | Caminer" />
+    <meta
+      property="og:description"
+      content="Viviendas, hoteles, reformas y naves construidas por Caminer."
+    />
+    <meta
+      property="og:image"
+      content="https://www.caminer.es/assets/img/og-card.jpg"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="assets/icons/logo.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/proyectos.css" />
+    <script defer src="js/main.js"></script>
+    <script defer src="js/proyectos.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Caminer, inicio"
+        ><img src="assets/icons/logo.png" alt="" width="40" height="40" /><span
+          >CAMINER</span
+        ></a
+      >
+      <nav class="nav" aria-label="Principal">
+        <a href="proyectos.html" data-i18n="nav.projects">Proyectos</a>
+        <a href="index.html#nosotros" data-i18n="nav.about">Sobre Nosotros</a>
+        <a href="index.html#valores" data-i18n="nav.values">Valores</a>
+      </nav>
+      <button
+        class="lang"
+        type="button"
+        aria-label="Cambiar idioma / Change language"
+      >
+        EN
+      </button>
+      <a
+        class="pill pill--small"
+        href="index.html#contacto"
+        data-i18n="nav.contact"
+        >CONTACTA</a
+      >
+      <button
+        class="burger"
+        type="button"
+        aria-label="Abrir menú"
+        aria-haspopup="dialog"
+        aria-controls="menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <dialog id="menu" class="menu" aria-label="Menú">
+      <div class="menu__card">
+        <div class="menu__head">
+          <a class="brand" href="index.html"
+            ><img
+              src="assets/icons/logo.png"
+              alt=""
+              width="40"
+              height="40"
+            /><span>CAMINER</span></a
+          >
+          <button class="menu__close" type="button" aria-label="Cerrar menú">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M5 5l14 14M19 5 5 19" />
+            </svg>
+          </button>
+        </div>
+        <ol class="menu__list">
+          <li>
+            <a href="index.html"
+              ><span>01</span><span data-i18n="menu.home">Inicio</span></a
+            >
+          </li>
+          <li>
+            <a href="proyectos.html"
+              ><span>02</span><span data-i18n="nav.projects">Proyectos</span></a
+            >
+          </li>
+          <li>
+            <a href="index.html#nosotros"
+              ><span>03</span
+              ><span data-i18n="nav.about">Sobre Nosotros</span></a
+            >
+          </li>
+          <li>
+            <a href="index.html#valores"
+              ><span>04</span
+              ><span data-i18n="menu.values">Nuestros valores</span></a
+            >
+          </li>
+        </ol>
+        <a
+          class="pill pill--hot"
+          href="index.html#contacto"
+          data-i18n="nav.contact"
+          >CONTACTA</a
+        >
+        <address class="menu__info">
+          <a href="tel:+34610061142"
+            ><svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"
+              /></svg
+            >+34 610 06 11 42</a
+          >
+          <a href="mailto:gerencia@caminer.es"
+            ><svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" /></svg
+            >gerencia@caminer.es</a
+          >
+          <span
+            ><svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z" />
+              <circle cx="12" cy="10" r="2.5" /></svg
+            >Projectes i Construccions Caminer, Carrer Gran, 112, 07420 Sa
+            Pobla, Illes Balears</span
+          >
+        </address>
+        <div class="menu__social">
+          <a
+            href="https://www.instagram.com/caminer/"
+            class="ig"
+            aria-label="Instagram"
+            rel="noopener"
+            ><svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" /></svg
+          ></a>
+          <a href="https://x.com/caminer" aria-label="X" rel="noopener"
+            ><svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M4 4l16 16M20 4 4 20" /></svg
+          ></a>
+          <button
+            class="lang"
+            type="button"
+            aria-label="Cambiar idioma / Change language"
+          >
+            EN
+          </button>
+        </div>
+        <small>© Caminer 2023–<span data-year>2026</span></small>
+      </div>
+    </dialog>
+
+    <h1 class="sr-only">Proyectos de Caminer</h1>
+
+    <div class="filters" role="group" aria-label="Filtrar proyectos">
+      <button
+        type="button"
+        data-filter="all"
+        aria-pressed="true"
+        data-i18n="filters.all"
+      >
+        TODO
+      </button>
+      <button
+        type="button"
+        data-filter="viviendas"
+        aria-pressed="false"
+        data-i18n="filters.viviendas"
+      >
+        Viviendas
+      </button>
+      <button
+        type="button"
+        data-filter="hoteles"
+        aria-pressed="false"
+        data-i18n="filters.hoteles"
+      >
+        Hoteles
+      </button>
+      <button
+        type="button"
+        data-filter="reformas"
+        aria-pressed="false"
+        data-i18n="filters.reformas"
+      >
+        Reformas
+      </button>
+      <button
+        type="button"
+        data-filter="naves"
+        aria-pressed="false"
+        data-i18n="filters.naves"
+      >
+        Naves
+      </button>
+    </div>
+
+    <div id="viewport">
+      <canvas id="pegboard" aria-hidden="true"></canvas>
+      <main id="canvas">
+        <div class="wrapper" id="about" aria-label="Sobre Caminer">
+          <img
+            class="hub__logo"
+            src="assets/icons/logo.png"
+            width="376"
+            height="376"
+            alt="Logo de Caminer"
+            draggable="false"
+          />
+          <div class="hub__name">
+            <b>CAMINER</b><span>Construcción y arquitectura</span>
+          </div>
+          <template>
+            <div class="m-content">
+              <h2>Caminer</h2>
+              <p>
+                Empresa de construcción y arquitectura con sede en Sa Pobla,
+                Islas Baleares. Realizamos viviendas, hoteles, almacenes,
+                estructuras y reformas con un enfoque integral y profesional.
+              </p>
+              <dl class="meta">
+                <dt>Ubicación</dt>
+                <dd>Carrer Gran, 112, 07420 Sa Pobla</dd>
+                <dt>Teléfono</dt>
+                <dd><a href="tel:+34610061142">+34 610 06 11 42</a></dd>
+                <dt>Contacto</dt>
+                <dd>
+                  <a href="mailto:gerencia@caminer.es">gerencia@caminer.es</a>
+                </dd>
+              </dl>
+            </div>
+          </template>
+        </div>
+
+        <!-- Add a project = copy an <article>. data-category: viviendas | hoteles | reformas | naves (space-separated for several). -->
+        <article
+          data-title="Vivienda unifamiliar"
+          data-category="viviendas"
+          data-img="assets/img/viviendas.webp"
+        >
+          <template>
+            <img
+              class="m-hero"
+              src="assets/img/viviendas.webp"
+              alt="Terraza de una vivienda con carpintería de madera y vidrio"
+            />
+            <div class="m-content">
+              <h2>Vivienda unifamiliar</h2>
+              <dl class="meta">
+                <dt>Tipo</dt>
+                <dd>Vivienda</dd>
+                <dt>Gestión</dt>
+                <dd>Integral, del diseño a la ejecución final</dd>
+              </dl>
+              <p>
+                Proyecto ejecutado por Caminer con asesoramiento personalizado,
+                materiales de alta calidad y máxima atención al detalle.
+              </p>
+            </div>
+          </template>
+        </article>
+        <article
+          data-title="Hotel con piscina"
+          data-category="hoteles"
+          data-img="assets/img/hoteles.webp"
+        >
+          <template>
+            <img
+              class="m-hero"
+              src="assets/img/hoteles.webp"
+              alt="Hotel con piscina"
+            />
+            <div class="m-content">
+              <h2>Hotel con piscina</h2>
+              <dl class="meta">
+                <dt>Tipo</dt>
+                <dd>Hotel</dd>
+                <dt>Gestión</dt>
+                <dd>Integral, del diseño a la ejecución final</dd>
+              </dl>
+              <p>
+                Proyecto ejecutado por Caminer con asesoramiento personalizado,
+                materiales de alta calidad y máxima atención al detalle.
+              </p>
+            </div>
+          </template>
+        </article>
+        <article
+          data-title="Reforma de interior"
+          data-category="reformas"
+          data-img="assets/img/reformas.webp"
+        >
+          <template>
+            <img
+              class="m-hero"
+              src="assets/img/reformas.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <div class="m-content">
+              <h2>Reforma de interior</h2>
+              <dl class="meta">
+                <dt>Tipo</dt>
+                <dd>Reforma</dd>
+                <dt>Gestión</dt>
+                <dd>Integral, del diseño a la ejecución final</dd>
+              </dl>
+              <p>
+                Proyecto ejecutado por Caminer con asesoramiento personalizado,
+                materiales de alta calidad y máxima atención al detalle.
+              </p>
+            </div>
+          </template>
+        </article>
+        <article
+          data-title="Nave industrial"
+          data-category="naves"
+          data-img="assets/img/naves.webp"
+        >
+          <template>
+            <img
+              class="m-hero"
+              src="assets/img/naves.webp"
+              alt="Nave industrial construida por Caminer"
+            />
+            <div class="m-content">
+              <h2>Nave industrial</h2>
+              <dl class="meta">
+                <dt>Tipo</dt>
+                <dd>Nave</dd>
+                <dt>Gestión</dt>
+                <dd>Integral, del diseño a la ejecución final</dd>
+              </dl>
+              <p>
+                Proyecto ejecutado por Caminer con asesoramiento personalizado,
+                materiales de alta calidad y máxima atención al detalle.
+              </p>
+            </div>
+          </template>
+        </article>
+      </main>
+    </div>
+
+    <div class="canvas-controls">
+      <button id="zoom-in" type="button" title="Acercar" aria-label="Acercar">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="10" cy="10" r="6" />
+          <path d="M15 15l5 5M10 7v6M7 10h6" />
+        </svg>
+      </button>
+      <button id="zoom-out" type="button" title="Alejar" aria-label="Alejar">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="10" cy="10" r="6" />
+          <path d="M15 15l5 5M7 10h6" />
+        </svg>
+      </button>
+      <button id="recenter" type="button" title="Centrar tablero">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="6" />
+          <path d="M12 2v5M12 17v5M2 12h5M17 12h5" />
+        </svg>
+        Centrar
+      </button>
+    </div>
+
+    <dialog id="modal" aria-label="Detalle">
+      <button class="modal__close" type="button" aria-label="Cerrar">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <div class="modal__body"></div>
+    </dialog>
+  </body>
+</html>

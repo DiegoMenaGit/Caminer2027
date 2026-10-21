@@ -1,0 +1,425 @@
+/* Projects page: pegboard canvas adapted from the portfolio. Site chrome comes from main.css. */
+html.page-projects,
+.page-projects body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #000;
+  color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.page-projects ::-webkit-scrollbar {
+  width: 6px;
+}
+.page-projects ::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 10px;
+}
+.page-projects .site-header {
+  z-index: 700;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  border-bottom-color: rgba(255, 255, 255, 0.22);
+}
+.hub__logo {
+  width: 25vh;
+  height: 25vh;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #fff;
+  padding: 1.5vh;
+  border: 3px solid var(--accent);
+}
+.hub__name {
+  display: grid;
+  justify-items: center;
+  margin: 3vh 0;
+  text-align: center;
+}
+.hub__name b {
+  font: 400 clamp(2.5rem, 4vw, 4.5rem)/1 var(--display);
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+.hub__name span {
+  margin-top: 0.6rem;
+  font-size: clamp(0.8rem, 1vw, 1.1rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.filters button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+dialog#modal .m-content p {
+  color: #ddd;
+  max-width: none;
+}
+/* ---------- CANVAS ---------- */
+#viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  background: #000;
+}
+#viewport.is-dragging {
+  cursor: grabbing;
+}
+
+#pegboard {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  contain: layout style;
+}
+
+/* ---------- TARJETAS ----------
+   Solo estilos genéricos: tamaño y posición los calcula el JS.
+   Para añadir un proyecto basta con otro <article> en el HTML. */
+#canvas > article {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 3px solid #fff;
+  background: #fff;
+  box-shadow: rgba(255, 115, 0, 0.35) 5px 5px 8px;
+}
+#canvas.ready > article {
+  transition:
+    translate 0.5s cubic-bezier(0.2, 0.9, 0.3, 1),
+    rotate 0.35s ease,
+    opacity 0.35s,
+    visibility 0s;
+}
+/* Inclinación leve de cada tarjeta (--rot la pone el JS); recta al pasar el ratón */
+#canvas > article {
+  rotate: var(--rot, 0deg);
+}
+#canvas > article:hover {
+  rotate: 0deg;
+  z-index: 2;
+}
+#canvas > article[data-href] {
+  cursor: pointer;
+}
+#canvas > article.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition-delay: 0s, 0s, 0s, 0.35s;
+}
+#canvas > article img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+#canvas > article[data-fit="contain"] img {
+  object-fit: contain;
+}
+.caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 56px 24px 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+#canvas > article:hover .caption {
+  opacity: 1;
+}
+.caption b {
+  display: block;
+  font-size: 26px;
+  font-weight: 400;
+}
+.caption span {
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0.8;
+}
+@media (prefers-reduced-motion: reduce) {
+  #canvas.ready > article {
+    transition: none;
+  }
+}
+
+/* ---------- LOGO: posición y visibilidad (lo necesita el JS) ---------- */
+#canvas > .wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  pointer-events: none; /* solo responden el círculo y el texto */
+}
+.hub__logo,
+.hub__name {
+  pointer-events: auto;
+  cursor: pointer;
+}
+#canvas.ready > .wrapper {
+  transition:
+    translate 0.5s cubic-bezier(0.2, 0.9, 0.3, 1),
+    opacity 0.35s,
+    visibility 0s;
+}
+#canvas > .wrapper.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0s, 0s, 0.35s;
+}
+@media (prefers-reduced-motion: reduce) {
+  #canvas.ready > .wrapper {
+    transition: none;
+  }
+}
+
+/* ---------- MODAL ---------- */
+dialog#modal {
+  position: fixed;
+  padding: 0;
+  width: min(960px, 92vw);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: #141516;
+  color: #fff;
+  user-select: text;
+  -webkit-user-select: text;
+}
+dialog#modal::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+dialog#modal[open] {
+  animation: modal-in 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog#modal[open] {
+    animation: none;
+  }
+}
+.modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.8);
+  color: #fff;
+  cursor: pointer;
+}
+.modal__close:hover {
+  background: rgba(60, 60, 60, 0.8);
+}
+.modal__body {
+  max-height: 88dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Estilos del contenido: usa estas clases en tus <template> */
+.modal__body .m-hero {
+  display: block;
+  width: 100%;
+  max-height: 50dvh;
+  object-fit: cover;
+}
+.modal__body .m-portrait {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.modal__body .m-content {
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+.modal__body .m-content > :not(.gallery) {
+  max-width: 68ch;
+}
+.modal__body h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.modal__body p {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+.modal__body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.modal__body .meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1.5rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+}
+.modal__body .meta dt {
+  opacity: 0.6;
+  font-weight: 300;
+}
+.modal__body .meta dd {
+  margin: 0;
+}
+.modal__body .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.modal__body .gallery img {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+}
+
+/* ---------- FILTROS ---------- */
+.filters {
+  position: fixed;
+  top: 5.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(18, 18, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 550;
+}
+.filters button {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.45rem 1rem;
+  opacity: 0.7;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    opacity 0.2s;
+}
+.filters button:hover {
+  opacity: 1;
+}
+.filters button[aria-pressed="true"] {
+  background: #fff;
+  color: #000;
+  opacity: 1;
+}
+@media (max-width: 730px) {
+  .filters button {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* ---------- CONTROLES ---------- */
+.canvas-controls {
+  position: fixed;
+  bottom: max(2rem, env(safe-area-inset-bottom));
+  left: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 600;
+}
+.canvas-controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(18, 18, 18, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.1s;
+}
+.canvas-controls button:hover:not(:disabled) {
+  background: rgba(60, 60, 60, 0.6);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.canvas-controls button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.canvas-controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 730px) {
+  .canvas-controls {
+    left: 1rem;
+  }
+}
