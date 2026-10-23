@@ -1,12 +1,12 @@
 @font-face {
   font-family: Montserrat;
-  src: url(../assets/fonts/Montserrat-VariableFont_wght.ttf) format("ttf");
+  src: url(../assets/fonts/Montserrat-VariableFont_wght.ttf) format("truetype");
   font-weight: 100 900;
   font-display: swap;
 }
 @font-face {
   font-family: Anton;
-  src: url(../assets/fonts/Anton-Regular.ttf) format("ttf");
+  src: url(../assets/fonts/Anton-Regular.ttf) format("truetype");
   font-display: swap;
 }
 @font-face {
@@ -50,6 +50,7 @@ body {
   color: var(--ink);
   background: var(--bg);
 }
+html, body { overflow-x: clip; }
 img,
 video {
   display: block;
@@ -349,6 +350,11 @@ p {
   letter-spacing: 0.02em;
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
+.projects__title,
+.project__tag {
+  font-family: var(--display);
+  font-weight: 400;
+}
 .projects__list {
   display: grid;
   gap: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 6vw, 6rem);
@@ -618,10 +624,25 @@ p {
 .cta p {
   color: #fff;
 }
+.cta__mail,
+.cta__tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
 .cta__mail {
   font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: 600;
   border-bottom: 2px solid #fff;
+}
+.cta__tel {
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-weight: 500;
+}
+.cta__icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
 }
 
 /* footer */
