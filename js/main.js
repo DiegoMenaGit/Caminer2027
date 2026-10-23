@@ -17,6 +17,15 @@ const en = {
   "proj.hoteles": "HOTELS",
   "proj.reformas": "RENOVATIONS",
   "proj.naves": "WAREHOUSES",
+  "proj.viviendas.d": "Custom homes, from the first sketch to handing over the keys.",
+  "proj.hoteles.d":
+    "Hotels and tourist accommodation with refined finishes and controlled timelines.",
+  "proj.reformas.d":
+    "Full renovations that refresh every space without losing its character.",
+  "proj.naves.d":
+    "Functional, durable warehouses and structures, ready to work.",
+  "proj.more": "see more",
+  "projects.all": "See all projects",
   "about.kicker": "03 / About us",
   "about.title": "<b>CAMINER</b> is a construction and architecture company",
   "about.p1":
@@ -131,4 +140,24 @@ if (vid) {
   vid.muted = true;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) vid.pause();
   else vid.play?.().catch(() => {});
+}
+
+// Page background: black on projects/brands, easing to white as the About section scrolls in
+const about = document.querySelector(".about");
+if (about) {
+  const root = document.documentElement;
+  let tick = 0;
+  const update = () => {
+    tick = 0;
+    const vh = innerHeight;
+    const t = Math.min(
+      1,
+      Math.max(0, (vh * 0.9 - about.getBoundingClientRect().top) / (vh * 0.6)),
+    );
+    root.style.setProperty("--p", (t * t * (3 - 2 * t)).toFixed(3)); // smoothstep
+  };
+  const queue = () => tick || (tick = requestAnimationFrame(update));
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", queue);
+  update();
 }

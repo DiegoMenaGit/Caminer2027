@@ -1,0 +1,499 @@
+/* Sobre nosotros ("Conoce Caminer"). Site chrome and tokens come from main.css. */
+html.page-about body {
+  background: var(--night);
+}
+.page-about .site-header {
+  background: rgba(14, 14, 14, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+.page-about .nav a[aria-current="page"] {
+  color: var(--accent);
+}
+
+/* ---------- Intro (dark) ---------- */
+.intro {
+  color: #fff;
+  background: var(--night);
+  padding: clamp(7.5rem, 14vw, 11rem) var(--pad) clamp(3rem, 7vw, 6rem);
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+.intro h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  max-width: 13ch;
+}
+.intro__body {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 42rem;
+}
+.intro__body p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.65;
+}
+.intro__body b {
+  color: var(--accent);
+  font-weight: 700;
+}
+/* same inner white frame as the project cards */
+.intro__photo {
+  --frame: clamp(0.9rem, 3vw, 2rem);
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #1c1c1c;
+}
+.intro__photo img {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+}
+.intro__photo::after {
+  content: "";
+  position: absolute;
+  inset: var(--frame);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.8rem;
+  pointer-events: none;
+}
+@media (min-width: 860px) {
+  .intro {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: end;
+  }
+  .intro h1 {
+    grid-column: 1 / 9;
+  }
+  .intro__body {
+    grid-column: 9 / -1;
+  }
+  .intro__photo {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- What we build ---------- */
+.what {
+  background: var(--bg);
+  color: var(--ink);
+  padding: clamp(4rem, 9vw, 8rem) var(--pad);
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.what__list {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.what__list li {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.what__list a {
+  display: grid;
+  gap: 0.35rem 2rem;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  padding: 1.5rem 0;
+  transition: color 0.25s, padding 0.4s var(--ease);
+}
+.what__name {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.what__desc {
+  grid-column: 1;
+  max-width: 44ch;
+  color: var(--muted);
+}
+.what__go {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-size: 1.6rem;
+}
+.what__list a:hover,
+.what__list a:focus-visible {
+  color: var(--accent);
+  padding-left: 0.75rem;
+}
+@media (min-width: 860px) {
+  .what__list a {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  .what__desc {
+    grid-column: 2;
+  }
+  .what__go {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+/* ---------- How we work ---------- */
+.how {
+  background: var(--sand);
+  color: var(--ink);
+  padding: clamp(4rem, 9vw, 8rem) var(--pad);
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+.how__lead {
+  max-width: 52ch;
+}
+.how__steps {
+  display: grid;
+  gap: 2rem;
+  margin: 1rem 0 1.5rem;
+  width: 100%;
+}
+.how__steps li {
+  display: grid;
+  gap: 0.4rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--ink);
+}
+.how__n {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.how__steps p {
+  font-size: 0.95rem;
+}
+@media (min-width: 860px) {
+  .how__steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* =====================================================================
+   MOTION + POLISH
+   Scroll reveals use .reveal / .is-in from main.css + main.js.
+   Everything below degrades to the static layout with reduced motion.
+   ===================================================================== */
+
+/* ---------- Page-load sequence (the one orchestrated moment) ---------- */
+.js .intro h1 {
+  animation: hero-in 1.2s var(--ease) 0.1s both;
+}
+.js .intro__body p:nth-child(1) {
+  animation: rise 1s var(--ease) 0.55s both;
+}
+.js .intro__body p:nth-child(2) {
+  animation: rise 1s var(--ease) 0.75s both;
+}
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+/* soft orange glow behind the headline, fades in with it */
+.intro {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 60rem;
+  height: 40rem;
+  right: -15rem;
+  top: -10rem;
+  background: radial-gradient(closest-side, rgba(255, 115, 0, 0.22), transparent);
+  animation: fade 2s ease 0.3s both;
+}
+
+/* ---------- Intro photo: frame closes in, image drifts ---------- */
+.js .intro__photo.reveal {
+  clip-path: inset(10% 8% round 1rem);
+  transform: translateY(40px);
+  transition:
+    opacity 1s var(--ease),
+    transform 1.2s var(--ease),
+    clip-path 1.4s var(--ease);
+}
+.js .intro__photo.reveal.is-in {
+  clip-path: inset(0 round 1rem);
+  transform: none;
+}
+.js .intro__photo::after {
+  inset: 0;
+  transition: inset 1.4s var(--ease) 0.3s;
+}
+.js .intro__photo.is-in::after {
+  inset: var(--frame);
+}
+.intro__photo img {
+  transform: scale(1.12);
+}
+@supports (animation-timeline: view()) {
+  .intro__photo img {
+    animation: photo-drift linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  @keyframes photo-drift {
+    from {
+      transform: translateY(-6%) scale(1.12);
+    }
+    to {
+      transform: translateY(6%) scale(1.12);
+    }
+  }
+}
+@supports not (animation-timeline: view()) {
+  .js .intro__photo img {
+    transition: transform 2s var(--ease);
+  }
+  .js .intro__photo.is-in img {
+    transform: none;
+  }
+}
+
+/* ---------- What we build: staggered rows + hover preview ---------- */
+.what__list li:nth-child(2) {
+  --d: 0.1s;
+}
+.what__list li:nth-child(3) {
+  --d: 0.2s;
+}
+.what__list li:nth-child(4) {
+  --d: 0.3s;
+}
+.what__list li {
+  position: relative;
+}
+/* the top rule draws in */
+.what__list li {
+  border-top: 0;
+}
+.what__list li::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.what__list li::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease);
+}
+.what__list li:hover::after,
+.what__list li:focus-within::after {
+  transform: none;
+}
+.what__list a {
+  position: relative;
+}
+.what__thumb {
+  display: none;
+}
+@media (min-width: 860px) and (hover: hover) {
+  .what__thumb {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    right: 8%;
+    top: 50%;
+    width: 15rem;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: 0 1.5rem 3rem -1rem rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-40%) rotate(-5deg) scale(0.85);
+    transition:
+      opacity 0.35s,
+      transform 0.6s var(--ease);
+  }
+  .what__list a:hover .what__thumb,
+  .what__list a:focus-visible .what__thumb {
+    opacity: 1;
+    transform: translateY(-50%) rotate(-2deg) scale(1);
+  }
+  .what__list a:hover .what__go {
+    transform: translate(4px, -4px);
+  }
+}
+.what__go {
+  transition: transform 0.4s var(--ease);
+}
+
+/* ---------- How we work: rules draw, numbers scale ---------- */
+.how__steps li {
+  position: relative;
+  border-top: 0;
+}
+.how__steps li::before,
+.how__steps li::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+}
+.how__steps li::before {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.18);
+}
+.how__steps li::after {
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s var(--ease) calc(var(--d, 0s) + 0.25s);
+}
+.how__steps li.is-in::after {
+  transform: none;
+}
+.how__steps li:nth-child(2) {
+  --d: 0.15s;
+}
+.how__steps li:nth-child(3) {
+  --d: 0.3s;
+}
+.how__steps li:nth-child(4) {
+  --d: 0.45s;
+}
+.how__n {
+  display: inline-block;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  transform-origin: left bottom;
+  transition: transform 0.5s var(--ease);
+}
+.how__steps li:hover .how__n {
+  transform: scale(1.12);
+}
+.how__steps h3 {
+  font-size: 1.35rem;
+}
+
+/* ---------- Quote ---------- */
+.quote {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--night);
+  padding: clamp(5rem, 12vw, 10rem) var(--pad);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.quote::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    50rem 24rem at 50% 100%,
+    rgba(255, 115, 0, 0.18),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.quote blockquote {
+  position: relative;
+  max-width: 22ch;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 1.12;
+  padding-top: 2rem;
+}
+.quote blockquote::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4rem;
+  height: 3px;
+  margin-left: -2rem;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 1s var(--ease) 0.4s;
+}
+.quote blockquote.is-in::before {
+  transform: none;
+}
+.js .quote blockquote.reveal {
+  transform: translateY(40px) scale(0.98);
+  transition:
+    opacity 1.2s var(--ease),
+    transform 1.2s var(--ease);
+}
+.js .quote blockquote.reveal.is-in {
+  transform: none;
+}
+
+/* ---------- CTA ---------- */
+.page-about .cta {
+  position: relative;
+  overflow: hidden;
+}
+.page-about .cta h2 {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  max-width: 14ch;
+}
+.page-about .cta > :nth-child(2) {
+  --d: 0.1s;
+}
+.page-about .cta > :nth-child(3) {
+  --d: 0.2s;
+}
+.page-about .cta > :nth-child(4) {
+  --d: 0.3s;
+}
+.page-about .cta__mail {
+  font-size: clamp(1.3rem, 4vw, 3rem);
+  transition: letter-spacing 0.4s var(--ease);
+}
+.page-about .cta__mail span[aria-hidden] {
+  display: inline-block;
+  transition: transform 0.4s var(--ease);
+}
+.page-about .cta__mail:hover span[aria-hidden] {
+  transform: translate(6px, -6px);
+}
+
+/* reduced motion: show everything immediately */
+@media (prefers-reduced-motion: reduce) {
+  .js .intro__photo.reveal,
+  .js .quote blockquote.reveal {
+    clip-path: none;
+    transform: none;
+    opacity: 1;
+  }
+  .intro__photo img {
+    transform: none;
+  }
+  .how__steps li::after,
+  .quote blockquote::before {
+    transform: none;
+  }
+}

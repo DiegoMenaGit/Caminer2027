@@ -114,7 +114,7 @@ p {
   text-transform: uppercase;
 }
 .projects > .eyebrow {
-  text-align: center;
+  text-align: start;
   margin-bottom: 1rem;
 }
 
@@ -270,12 +270,20 @@ p {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.1) 40%,
-    rgba(0, 0, 0, 0.6)
-  );
+  background:
+    /* last stretch melts into the projects section: no hard edge */
+    linear-gradient(
+      to bottom,
+      transparent 70%,
+      rgba(14, 14, 14, 0.7) 90%,
+      var(--night) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0.6)
+    );
 }
 .hero__content {
   position: relative;
@@ -304,10 +312,23 @@ p {
 
 /* projects */
 .projects {
-  background: var(--night);
+  position: relative;
   color: #fff;
-  padding: clamp(4rem, 9vw, 8rem) var(--pad);
+  padding: clamp(4rem, 9vw, 8rem) var(--pad) clamp(3rem, 6vw, 5rem);
   overflow: hidden;
+  /* warm glows for depth + a long, eased fade from night to the page colour,
+     so the next section (brands / about) arrives without a hard edge */
+  background:
+    radial-gradient(
+      52rem 38rem at 88% 22%,
+      rgba(255, 115, 0, 0.13),
+      transparent 70%
+    ),
+    radial-gradient(
+      46rem 34rem at 6% 58%,
+      rgba(255, 115, 0, 0.09),
+      transparent 70%
+    );
 }
 .projects__title a {
   display: block;
@@ -326,11 +347,11 @@ p {
   color: transparent;
   -webkit-text-stroke: 2px #fff;
   letter-spacing: 0.02em;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 .projects__list {
   display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 6vw, 6rem);
 }
 .project {
   width: min(88%, 46rem);
@@ -339,33 +360,56 @@ p {
   justify-self: end;
 }
 .project a {
+  display: block;
+  color: inherit;
+}
+
+/* photo with an inner white frame, like the wireframe */
+.project__media {
+  --frame: 7cqw;
   position: relative;
   display: block;
+  container-type: inline-size;
   border-radius: 1rem;
-  overflow: visible;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #1c1c1c;
+  box-shadow: 0 1.5rem 3rem -1.25rem rgba(0, 0, 0, 0.7);
 }
-.project img {
+.project__media img {
   width: 100%;
+  height: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
-  border-radius: 1rem;
+  transition: transform 0.9s var(--ease);
 }
-/* label stays inside the photo (no overhang, so nothing clips or collides):
-   rest = on the outer edge, hover/focus = centred. Transform-only. */
-.project a {
-  container-type: inline-size;
-}
-.project a::after {
+.project__media::before {
+  /* soft tint so the outlined label always reads */
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 1rem;
-  background: rgba(0, 0, 0, 0.22);
+  z-index: 1;
   pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12),
+    rgba(0, 0, 0, 0.32)
+  );
+  transition: opacity 0.5s;
+}
+.project__media::after {
+  content: "";
+  position: absolute;
+  inset: var(--frame);
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.9rem;
+  pointer-events: none;
+  transition: inset 0.6s var(--ease);
 }
 .project__tag {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   top: 50%;
   left: 50%;
   white-space: nowrap;
@@ -381,32 +425,84 @@ p {
     transform 0.6s var(--ease),
     color 0.4s;
 }
+/* rest: label sits on the frame's outer edge; hover/focus: centred and filled */
 .project--left .project__tag {
-  transform: translate(calc(-50cqw + 1.25rem), -50%);
+  transform: translate(calc(-50cqw + var(--frame)), -50%);
 }
 .project--right .project__tag {
-  transform: translate(calc(50cqw - 1.25rem - 100%), -50%);
+  transform: translate(calc(50cqw - var(--frame) - 100%), -50%);
+}
+
+/* caption row under the photo */
+.project__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 0.25rem 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.project__desc {
+  max-width: 32ch;
+  color: rgba(255, 255, 255, 0.72);
+}
+.project__more {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  white-space: nowrap;
+  background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px
+    no-repeat;
+  padding-bottom: 0.15rem;
+  transition: background-size 0.5s var(--ease), color 0.3s;
+}
+.project__arrow {
+  transition: transform 0.5s var(--ease);
+}
+
+.project a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+  border-radius: 1rem;
 }
 .project a:focus-visible .project__tag {
   transform: translate(-50%, -50%);
   color: #fff;
+}
+.project a:focus-visible .project__media::after {
+  inset: calc(var(--frame) * 0.55);
+}
+.project a:focus-visible .project__more {
+  color: var(--accent);
+  background-size: 100% 1px;
 }
 @media (hover: hover) {
   .project a:hover .project__tag {
     transform: translate(-50%, -50%);
     color: #fff;
   }
+  .project a:hover .project__media img {
+    transform: scale(1.06);
+  }
+  .project a:hover .project__media::after {
+    inset: calc(var(--frame) * 0.55);
+  }
+  .project a:hover .project__more {
+    color: var(--accent);
+    background-size: 100% 1px;
+  }
+  .project a:hover .project__arrow {
+    transform: translate(3px, -3px);
+  }
 }
-@media (hover: hover) and (min-width: 860px) {
-  .project a {
-    transition: transform 0.6s var(--ease);
-  }
-  .project--left a:hover {
-    transform: translateX(1.25rem);
-  }
-  .project--right a:hover {
-    transform: translateX(-1.25rem);
-  }
+.projects__all {
+  justify-self: center;
+  margin: clamp(3rem, 6vw, 5rem) auto 0;
+  display: flex;
+  width: fit-content;
 }
 @media (min-width: 860px) {
   .projects__list {
@@ -418,6 +514,15 @@ p {
   }
   .project--right {
     margin-top: 6rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project__media img,
+  .project__media::after,
+  .project__tag,
+  .project__more,
+  .project__arrow {
+    transition: none;
   }
 }
 
@@ -524,8 +629,9 @@ p {
   display: grid;
   gap: 1.5rem;
   padding: 3rem var(--pad);
-  background: var(--bg);
+  background: var(--ink);
   font-size: 0.9rem;
+  color: var(--bg);
 }
 .site-footer address {
   display: grid;
@@ -750,8 +856,8 @@ p {
 
 /* brands marquee: two identical lists, each slides by its own width = seamless loop */
 .brands {
-  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
-  background: var(--bg);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(4rem, 8vw, 7rem);
+  color: #fff;
   overflow: hidden;
 }
 .brands .brands__title {
@@ -784,7 +890,10 @@ p {
 .brands__list {
   display: flex;
   flex: none;
+  min-width: 100%; /* each copy fills the screen, so no gap on wide displays */
+  justify-content: space-around;
   align-items: center;
+  will-change: transform;
   gap: clamp(2rem, 6vw, 5rem);
   padding-right: clamp(2rem, 6vw, 5rem);
   animation: marquee 40s linear infinite;
@@ -797,13 +906,15 @@ p {
   width: auto;
   max-width: none;
   filter: grayscale(1);
+  /* dark strip: invert to light, then "screen" drops the black/white JPG backgrounds */
+  filter: grayscale(1) invert(1);
+  mix-blend-mode: screen;
   opacity: 0.6;
   transition:
     filter 0.3s,
     opacity 0.3s;
 }
 .brands__list img:hover {
-  filter: none;
   opacity: 1;
 }
 @keyframes marquee {
@@ -1000,4 +1111,23 @@ p {
   .values__list li::after {
     transform: none;
   }
+}
+
+/* ---------- scroll-linked background: black while on projects/brands, white once past ----------
+   main.js sets --p (0 → 1) on <html> as the About section scrolls in. */
+:root {
+  --p: 0;
+}
+.js body {
+  background: color-mix(in srgb, var(--bg) calc(var(--p) * 100%), var(--night));
+}
+.js .about {
+  color: color-mix(in srgb, var(--ink) calc(var(--p) * 100%), #fff);
+}
+.js .about p,
+.js .about .about__quote {
+  color: color-mix(in srgb, var(--muted) calc(var(--p) * 100%), #c9c9c9);
+}
+.js .brands__list img[src*="white"] {
+  filter: grayscale(1);
 }

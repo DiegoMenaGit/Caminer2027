@@ -267,58 +267,27 @@
 
     <div id="viewport">
       <canvas id="pegboard" aria-hidden="true"></canvas>
-      <main id="canvas">
-        <div class="wrapper" id="about" aria-label="Sobre Caminer">
-          <img
-            class="hub__logo"
-            src="assets/icons/logo.png"
-            width="376"
-            height="376"
-            alt="Logo de Caminer"
-            draggable="false"
-          />
-          <div class="hub__name">
-            <b>CAMINER</b><span>Construcción y arquitectura</span>
-          </div>
-          <template>
-            <div class="m-content">
-              <h2>Caminer</h2>
-              <p>
-                Empresa de construcción y arquitectura con sede en Sa Pobla,
-                Islas Baleares. Realizamos viviendas, hoteles, almacenes,
-                estructuras y reformas con un enfoque integral y profesional.
-              </p>
-              <dl class="meta">
-                <dt>Ubicación</dt>
-                <dd>Carrer Gran, 112, 07420 Sa Pobla</dd>
-                <dt>Teléfono</dt>
-                <dd><a href="tel:+34610061142">+34 610 06 11 42</a></dd>
-                <dt>Contacto</dt>
-                <dd>
-                  <a href="mailto:gerencia@caminer.es">gerencia@caminer.es</a>
-                </dd>
-              </dl>
-            </div>
-          </template>
-        </div>
+      <main id="canvas"> 
 
         <!-- Add a project = copy an <article>. data-category: viviendas | hoteles | reformas | naves (space-separated for several). -->
-        <article
-          data-title="Vivienda unifamiliar"
-          data-category="viviendas"
-          data-img="assets/img/viviendas.webp"
+        
+        <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+         <article
+          data-title="Aucanada hotel"
+          data-category="reformas"
+          data-img="assets/proyectos/hotel2/AucanadaHotel.webp"
         >
           <template>
             <img
               class="m-hero"
-              src="assets/img/viviendas.webp"
-              alt="Terraza de una vivienda con carpintería de madera y vidrio"
+              src="assets/proyectos/hotel2/AucanadaHotel.webp"
+              alt="Interior de un hotel reformado"
             />
             <div class="m-content">
-              <h2>Vivienda unifamiliar</h2>
+              <h2>Aucanada hotel</h2>
               <dl class="meta">
                 <dt>Tipo</dt>
-                <dd>Vivienda</dd>
+                <dd>Reforma</dd>
                 <dt>Gestión</dt>
                 <dd>Integral, del diseño a la ejecución final</dd>
               </dl>
@@ -326,44 +295,38 @@
                 Proyecto ejecutado por Caminer con asesoramiento personalizado,
                 materiales de alta calidad y máxima atención al detalle.
               </p>
+              <div class="gallery">
+  <img src="assets/proyectos/hotel2/AucanadaHotel.webp" alt="Fachada exterior del Hotel Aucanada" />
+  <img src="assets/proyectos/hotel2/cocina.webp" alt="Zona de buffet y cocina del hotel" />
+  <img src="assets/proyectos/hotel2/cocina2.webp" alt="Área de comedor y servicio de cocina" />
+  <img src="assets/proyectos/hotel2/comedor.webp" alt="Mesa y decoración del comedor" />
+  <img src="assets/proyectos/hotel2/comedor2.webp" alt="Salón comedor con vistas exteriores" />
+  <img src="assets/proyectos/hotel2/habitacion.webp" alt="Dormitorio con baño integrado y vistas" />
+  <img src="assets/proyectos/hotel2/habitacion2.webp" alt="Habitación principal con terraza al mar" />
+  <img src="assets/proyectos/hotel2/habitacion3.webp" alt="Cama doble y zona de estar en habitación" />
+  <img src="assets/proyectos/hotel2/habitacion4.webp" alt="Baño con ducha moderna y lavabo" />
+  <img src="assets/proyectos/hotel2/habitacion5.webp" alt="Detalle de armario y zona de descanso" />
+  <img src="assets/proyectos/hotel2/habitacion6.webp" alt="Vista general del dormitorio y mobiliario" />
+  <img src="assets/proyectos/hotel2/hall.webp" alt="Zona lounge y sofás del hall" />
+  <img src="assets/proyectos/hotel2/hall2.webp" alt="Mostrador de recepción del hotel" />
+  <img src="assets/proyectos/hotel2/hall3.webp" alt="Área de espera y descanso en recepción" />
+  <img src="assets/proyectos/hotel2/hall4.webp" alt="Salón de recepción amplio con butacas" />
+  <img src="assets/proyectos/hotel2/hall5.webp" alt="Escaleras y pasillo del hall principal" />
+  <img src="assets/proyectos/hotel2/piscina.webp" alt="Terraza solárium y piscina exterior" />
+  <img src="assets/proyectos/hotel2/piscina2.webp" alt="Detalle de la piscina con tumbonas" />
+</div>
             </div>
           </template>
-        </article>
-        <article
-          data-title="Hotel con piscina"
-          data-category="hoteles"
-          data-img="assets/img/hoteles.webp"
-        >
-          <template>
-            <img
-              class="m-hero"
-              src="assets/img/hoteles.webp"
-              alt="Hotel con piscina"
-            />
-            <div class="m-content">
-              <h2>Hotel con piscina</h2>
-              <dl class="meta">
-                <dt>Tipo</dt>
-                <dd>Hotel</dd>
-                <dt>Gestión</dt>
-                <dd>Integral, del diseño a la ejecución final</dd>
-              </dl>
-              <p>
-                Proyecto ejecutado por Caminer con asesoramiento personalizado,
-                materiales de alta calidad y máxima atención al detalle.
-              </p>
-            </div>
-          </template>
-        </article>
+        </article>  
         <article
           data-title="Reforma de interior"
           data-category="reformas"
-          data-img="assets/img/reformas.webp"
+          data-img="assets/proyectos/hotel1/doble superior 2.webp"
         >
           <template>
             <img
               class="m-hero"
-              src="assets/img/reformas.webp"
+              src="assets/proyectos/hotel1/doble superior 2.webp"
               alt="Interior de una vivienda reformada"
             />
             <div class="m-content">
@@ -378,35 +341,40 @@
                 Proyecto ejecutado por Caminer con asesoramiento personalizado,
                 materiales de alta calidad y máxima atención al detalle.
               </p>
-            </div>
-          </template>
-        </article>
-        <article
-          data-title="Nave industrial"
-          data-category="naves"
-          data-img="assets/img/naves.webp"
-        >
-          <template>
-            <img
-              class="m-hero"
-              src="assets/img/naves.webp"
-              alt="Nave industrial construida por Caminer"
+              <div class="gallery">
+                <img
+              src="assets/proyectos/hotel1/2764-hsm-atlantic-park-superior-junior-suite-10.webp"
+              alt="Interior de una vivienda reformada"
             />
-            <div class="m-content">
-              <h2>Nave industrial</h2>
-              <dl class="meta">
-                <dt>Tipo</dt>
-                <dd>Nave</dd>
-                <dt>Gestión</dt>
-                <dd>Integral, del diseño a la ejecución final</dd>
-              </dl>
-              <p>
-                Proyecto ejecutado por Caminer con asesoramiento personalizado,
-                materiales de alta calidad y máxima atención al detalle.
-              </p>
+            <img
+              src="assets/proyectos/hotel1/baño doble superior.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <img
+              src="assets/proyectos/hotel1/Baño family.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <img
+              src="assets/proyectos/hotel1/single room 1.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <img
+              src="assets/proyectos/hotel1/single room 2.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <img
+              src="assets/proyectos/hotel1/single room.webp"
+              alt="Interior de una vivienda reformada"
+            />
+            <img
+              src="assets/proyectos/hotel1/superior junior suit baño .webp"
+              alt="Interior de una vivienda reformada"
+            />
+              </div>
+              
             </div>
           </template>
-        </article>
+        </article>  
       </main>
     </div>
 

@@ -106,10 +106,19 @@ dialog#modal .m-content p {
   top: 0;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 5px;
-  border: 3px solid #fff;
-  background: #fff;
-  box-shadow: rgba(255, 115, 0, 0.35) 5px 5px 8px;
+  border-radius: 22px;
+  background: #222;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+}
+/* Marco fino interior, como en la referencia */
+#canvas > article::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 3;
 }
 #canvas.ready > article {
   transition:
@@ -145,27 +154,50 @@ dialog#modal .m-content p {
 #canvas > article[data-fit="contain"] img {
   object-fit: contain;
 }
+/* Degradado suave para que el texto se lea sobre cualquier foto */
+#canvas > article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.25) 45%, transparent 65%),
+    linear-gradient(transparent 50%, rgba(0, 0, 0, 0.75));
+}
 .caption {
   position: absolute;
-  inset: auto 0 0 0;
-  padding: 56px 24px 20px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  opacity: 0;
-  transition: opacity 0.25s;
+  inset: 0;
+  z-index: 2;
+  padding: 64px 56px 52px;
   pointer-events: none;
-}
-#canvas > article:hover .caption {
-  opacity: 1;
+  color: #fff;
 }
 .caption b {
   display: block;
-  font-size: 26px;
-  font-weight: 400;
+  max-width: 70%;
+  margin-left: auto;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  text-align: end;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.7),
+    0 4px 24px rgba(0, 0, 0, 0.6);
 }
 .caption span {
-  font-size: 18px;
-  font-weight: 300;
-  opacity: 0.8;
+  position: absolute;
+  left: 56px;
+  bottom: 50px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: pre;
 }
 @media (prefers-reduced-motion: reduce) {
   #canvas.ready > article {
@@ -312,8 +344,8 @@ dialog#modal[open] {
   margin: 0;
 }
 .modal__body .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: flex;
+  flex-direction: column; /* one image on top of the other */
   gap: 0.75rem;
   margin-top: 1.5rem;
 }

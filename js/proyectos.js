@@ -417,7 +417,9 @@
       .split(/\s+/)
       .filter(Boolean)
       .map((k) => labels[k] || k)
-      .join(" · ");
+      .join(" · ")
+      .toUpperCase();
+    if (el.dataset.year) c.textContent += "  ·  " + el.dataset.year;
     cap.append(t, c);
     el.append(cap);
   });
